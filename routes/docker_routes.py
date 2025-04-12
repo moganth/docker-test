@@ -4,17 +4,19 @@ from docker_utils import build_image_from_repo, run_container, list_containers, 
 
 router = APIRouter(prefix="/docker", tags=["Docker Commands"])
 
-# Define a request model for the build request to include the github_url and image_name
+# Define a request model for the build request to include the github_url, image_name, and repo_name
 class BuildRequest(BaseModel):
     github_url: str
     image_name: str
+    repo_name: str  # Added repo_name as a required field
 
 # Build Docker image from a GitHub repository
 @router.post("/build")
 def build_image(request: BuildRequest):
     github_url = request.github_url
     image_name = request.image_name
-    return build_image_from_repo(github_url, image_name)
+    repo_name = request.repo_name
+    return build_image_from_repo(github_url, image_name, repo_name)
 
 # Run a Docker container (after build)
 @router.post("/run/{image_name}")
