@@ -36,7 +36,7 @@ def build_image_from_repo(github_url: str, image_name: str):
             return clone_response  # Return error if cloning fails
 
         # Assuming the repository contains a Dockerfile at the root level
-        destination_dir = "/home/ubuntu/docker-app"  # Default destination for cloned repo
+        destination_dir = "/home/ubuntu/"  # Default destination for cloned repo
         build_command = ["docker", "build", "-t", image_name, destination_dir]
 
         # Run the build command
