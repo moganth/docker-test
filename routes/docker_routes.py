@@ -16,42 +16,35 @@ def build_image(request: BuildRequest):
     image_name = request.image_name
     return build_image_from_repo(github_url, image_name)
 
-
 # Run a Docker container (after build)
 @router.post("/run/{image_name}")
 def run(image_name: str, container_name: str = None):
     return run_container(image_name, container_name)
-
 
 # List all Docker containers (including stopped ones)
 @router.get("/ps")
 def ps(all_containers: bool = True):
     return list_containers(all_containers=all_containers)
 
-
 # Get logs from a Docker container
 @router.get("/logs/{container_name}")
 def logs(container_name: str):
     return get_logs(container_name)
-
 
 # Delete a Docker container
 @router.delete("/delete/{container_name}")
 def delete(container_name: str):
     return delete_container(container_name)
 
-
 # Create a Docker volume
 @router.post("/volume/{volume_name}")
 def create_volume_route(volume_name: str):
     return create_volume(volume_name)
 
-
 # List all Docker volumes
 @router.get("/volumes")
 def get_volumes():
     return list_volumes()
-
 
 # Remove a Docker volume
 @router.delete("/volume/{volume_name}")
